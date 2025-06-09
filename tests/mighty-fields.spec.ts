@@ -56,10 +56,10 @@ test('MightyFields case test', async ({ page }) => {
   await page.locator('.sweet-alert button.confirm').click();
 
   // Fill form fields
-  const fullName = 'John Doe';
+  const name = 'John Doe';
   const age = '24';
   const country = 'Slovenija';
-  await page.locator('sf-input:has-text("Name") input[type="text"]').fill(fullName);
+  await page.locator('sf-input:has-text("Name") input[type="text"]').fill(name);
   await page.locator('sf-input:has-text("Age") input[type="tel"]').fill(age);
   await page.selectOption('select[name="fielddropdown"]', { label: country });
 
@@ -86,7 +86,7 @@ test('MightyFields case test', async ({ page }) => {
   await caseContainer.locator('.button-row button:has-text("View")').click();
 
   // Verify form values
-  await expect(page.locator('sf-input:has-text("Name") input[type="text"]')).toHaveValue(fullName);
+  await expect(page.locator('sf-input:has-text("Name") input[type="text"]')).toHaveValue(name);
   await expect(page.locator('sf-input:has-text("Age") input[type="tel"]')).toHaveValue(age);
   const countryDropdown = page.locator(
     '.control-wrapper:has-text("Country") select option[selected]',
