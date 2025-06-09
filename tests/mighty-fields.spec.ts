@@ -53,9 +53,38 @@ test('MightyFields case test', async ({ page }) => {
   // Filling form fields
   await page.locator('sf-input:has-text("Name") input[type="text"]').fill('John Doe');
   await page.locator('sf-input:has-text("Age") input[type="tel"]').fill('24');
+  await page.selectOption('select[name="fielddropdown"]', { label: 'Slovenija' });
 
-  // Manually close the cookie banner before clicking "Next"
+  // Closing cookie banner as it is covering elements
   await dismissCookieBanner(page);
+
+  // Ensure the parent container of the English checkbox is visible
+  const englishCheckboxContainer = page.locator('.control-wrapper:has-text("English")');
+  await englishCheckboxContainer.waitFor({ state: 'visible' });
+  await expect(englishCheckboxContainer).toBeVisible();
+
+  // Click on the visible toggle track to toggle the English checkbox
+  const englishToggleTrack = page.locator('.control-wrapper:has-text("English") .track');
+  await expect(englishToggleTrack).toBeVisible();
+  console.log('[debug] Clicking on English toggle track...');
+  await englishToggleTrack.click({ force: true });
+
+  // Ensure the dropdown's parent container becomes visible after toggling "English"
+  const englishDropdownContainer = page.locator('.control-wrapper:has-text("Level english")');
+  await englishDropdownContainer.waitFor({ state: 'visible' });
+  await expect(englishDropdownContainer).toBeVisible();
+
+  // Ensure the dropdown becomes visible and enabled
+  const englishDropdown = englishDropdownContainer.locator(
+    'select[id="53526619-bcf2-4cfe-b30c-e69a648d0946"]',
+  );
+  await englishDropdown.waitFor({ state: 'visible' });
+  await expect(englishDropdown).toBeEnabled();
+
+  // Select the "UltraMega" option
+  await englishDropdown.selectOption({ label: 'UltraMega' });
+
+  // Clicking "Next"
   await page.getByRole('button', { name: 'Next' }).click();
 
   // Click the "Close case" button
