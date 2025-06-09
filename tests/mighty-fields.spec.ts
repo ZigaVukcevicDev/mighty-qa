@@ -33,7 +33,7 @@ async function verifyDropdown(page: Page, label: string, expectedValue: string) 
  * I usually ensure test data is cleaned up, but in this case, the application disables the delete buttons. I apologize for the leftover test entries in the system.
  *
  * 4. Language switching
- * I believe there is a bug in the language switching mechanism. The login screen appears in Slovenian. After logging in, the interface switches to English. Upon refreshing, it switches again — this time to Italian.
+ * I believe there is a bug in the language switching mechanism. The login screen appears in Slovenian. After logging in, the interface switches to English. Upon refreshing, it switches again — this time to Italian. UPDATED: can not be reproduced anymore.
  */
 
 test('MightyFields case test', async ({ page }) => {
